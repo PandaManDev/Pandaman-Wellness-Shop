@@ -1,0 +1,902 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090611">
+  <meta name="description" content="Pandaman Wellness — premium brand and product information.">
+  <title>Pandaman Wellness</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #090611;
+      --surface: #130d20;
+      --surface-light: #1b122b;
+      --purple: #a855f7;
+      --purple-light: #c084fc;
+      --text: #f8f5ff;
+      --muted: #a99bbd;
+      --border: rgba(192,132,252,.19);
+      --radius: 20px;
+      --width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% -15%, rgba(126,34,206,.22), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(var(--width), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    /* Navigation */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(9,6,17,.86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--width);
+      min-height: 72px;
+      margin: auto;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -.4px;
+    }
+
+    .brand-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #7e22ce, #c084fc);
+      font-size: 22px;
+    }
+
+    .brand-name {
+      font-size: 16px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .nav-links a {
+      padding: 9px 16px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 30px;
+      transition: .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: white;
+      background: rgba(168,85,247,.17);
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 82px 15px 60px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 250px;
+      left: 50%;
+      top: 50px;
+      transform: translateX(-50%);
+      background: rgba(147,51,234,.16);
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-logo {
+      width: 112px;
+      height: 112px;
+      margin: 0 auto 23px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(216,180,254,.45);
+      border-radius: 34px;
+      background: linear-gradient(145deg, #28133e, #11091d);
+      box-shadow: 0 15px 60px rgba(147,51,234,.2);
+      font-size: 58px;
+    }
+
+    .eyebrow {
+      color: var(--purple-light);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(42px, 8vw, 76px);
+      line-height: 1.1;
+      letter-spacing: -2px;
+    }
+
+    .gradient-text {
+      color: var(--purple-light);
+      background: linear-gradient(90deg, #e9d5ff, #a855f7, #d8b4fe);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      max-width: 580px;
+      margin: 16px auto 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .hero-tags {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .hero-tags span {
+      padding: 7px 13px;
+      color: #e9d5ff;
+      background: rgba(168,85,247,.09);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+
+    /* Main content */
+
+    main {
+      padding-bottom: 65px;
+    }
+
+    .page {
+      display: none;
+      animation: appear .3s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-heading {
+      margin: 20px 0 23px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(30px, 5vw, 43px);
+    }
+
+    .section-heading p {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .product-section {
+      min-width: 0;
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(29,18,45,.96), rgba(16,10,25,.98));
+      box-shadow: 0 10px 35px rgba(0,0,0,.17);
+      transition: border-color .2s, transform .2s;
+    }
+
+    .product-section:hover {
+      border-color: rgba(192,132,252,.45);
+      transform: translateY(-2px);
+    }
+
+    .product-section.wide {
+      grid-column: 1 / -1;
+    }
+
+    .product-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 17px;
+      margin-bottom: 13px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .product-icon {
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(168,85,247,.14);
+      font-size: 21px;
+    }
+
+    .product-heading h3 {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .product-heading p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .product-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    .product-row {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(192,132,252,.09);
+    }
+
+    .product-row:last-child {
+      border-bottom: 0;
+    }
+
+    .product-name {
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .product-detail {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .price {
+      flex: 0 0 auto;
+      padding: 7px 13px;
+      color: #f3e8ff;
+      background: rgba(168,85,247,.14);
+      border: 1px solid rgba(192,132,252,.25);
+      border-radius: 11px;
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .flower-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .flower-item {
+      padding: 17px 10px;
+      text-align: center;
+      background: rgba(255,255,255,.025);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .flower-item strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .flower-item small {
+      display: block;
+      margin: 3px 0 12px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .flower-item .price {
+      display: inline-block;
+    }
+
+    .choice-label {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .chips span {
+      padding: 6px 12px;
+      color: #e9d5ff;
+      background: rgba(168,85,247,.12);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* About and contact */
+
+    .info-card {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 35px;
+      text-align: center;
+      background: linear-gradient(145deg, #1b122b, #100a19);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+    }
+
+    .about-panda {
+      width: 95px;
+      height: 95px;
+      margin: 0 auto 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 28px;
+      background: rgba(168,85,247,.14);
+      font-size: 52px;
+    }
+
+    .info-card h2 {
+      margin-bottom: 14px;
+      font-family: "Playfair Display", serif;
+      font-size: 34px;
+    }
+
+    .info-card p {
+      max-width: 580px;
+      margin: 10px auto;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact-number {
+      margin: 22px 0 10px;
+      color: var(--purple-light);
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .contact-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .contact-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 47px;
+      padding: 11px 19px;
+      color: white;
+      background: linear-gradient(135deg, #7e22ce, #a855f7);
+      border: 1px solid rgba(216,180,254,.35);
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .contact-button.secondary {
+      background: rgba(168,85,247,.12);
+    }
+
+    .contact-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(168,85,247,.2);
+    }
+
+    /* Footer */
+
+    footer {
+      padding: 27px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #e9d5ff;
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+
+    /* Accessibility */
+
+    a:focus-visible {
+      outline: 2px solid var(--purple-light);
+      outline-offset: 4px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 650px) {
+      .container {
+        width: min(100% - 26px, var(--width));
+      }
+
+      .nav-inner {
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-links a {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 52px 8px 40px;
+      }
+
+      .hero-logo {
+        width: 90px;
+        height: 90px;
+        font-size: 47px;
+        border-radius: 27px;
+      }
+
+      .hero-description {
+        font-size: 13px;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+      }
+
+      .product-section.wide {
+        grid-column: auto;
+      }
+
+      .product-section {
+        padding: 19px;
+      }
+
+      .flower-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .info-card {
+        padding: 27px 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#menu" aria-label="Pandaman Wellness home">
+        <span class="brand-icon">🐼</span>
+        <span class="brand-name">PANDAMAN WELLNESS</span>
+      </a>
+
+      <div class="nav-links" id="nav">
+        <a href="#menu" class="active">Menu</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content container">
+      <div class="hero-logo">🐼</div>
+      <div class="eyebrow">Premium · Modern · Refined</div>
+      <h1><span class="gradient-text">Pandaman</span><br>Wellness</h1>
+
+      <p class="hero-description">
+        Welcome to Pandaman Wellness. Explore our brand, product categories,
+        and the information available throughout our website.
+      </p>
+
+      <div class="hero-tags">
+        <span>FLOWER</span>
+        <span>PRE-ROLLS</span>
+        <span>CARTS</span>
+        <span>CONCENTRATE</span>
+        <span>EDIBLES</span>
+        <span>ACCESSORIES</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- MENU PAGE -->
+    <div class="page active" id="menu">
+      <div class="section-heading">
+        <div class="eyebrow">Explore</div>
+        <h2>Product Menu</h2>
+        <p>Browse the different categories and product information.</p>
+      </div>
+
+      <div class="menu-grid">
+
+        <section class="product-section wide">
+          <div class="product-heading">
+            <div class="product-icon">🌿</div>
+            <div>
+              <h3>Flower</h3>
+              <p>Product sizes and menu information</p>
+            </div>
+          </div>
+
+          <div class="flower-grid">
+            <div class="flower-item">
+              <strong>Eighth</strong>
+              <small>3.5 g</small>
+              <span class="price">$20</span>
+            </div>
+            <div class="flower-item">
+              <strong>Quarter</strong>
+              <small>7 g</small>
+              <span class="price">$80</span>
+            </div>
+            <div class="flower-item">
+              <strong>Half Ounce</strong>
+              <small>14 g</small>
+              <span class="price">$120</span>
+            </div>
+            <div class="flower-item">
+              <strong>Ounce</strong>
+              <small>28 g</small>
+              <span class="price">$180</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="product-section">
+          <div class="product-heading">
+            <div class="product-icon">🚬</div>
+            <div>
+              <h3>Pre-Rolls</h3>
+              <p>Category information</p>
+            </div>
+          </div>
+          <div class="product-list">
+            <div class="product-row"><span class="product-name">1 Pre-Roll</span><b class="price">$15</b></div>
+            <div class="product-row"><span class="product-name">2 Pre-Rolls</span><b class="price">$30</b></div>
+            <div class="product-row"><span class="product-name">3 Pre-Rolls</span><b class="price">$60</b></div>
+          </div>
+        </section>
+
+        <section class="product-section">
+          <div class="product-heading">
+            <div class="product-icon">💜</div>
+            <div>
+              <h3>Carts</h3>
+              <p>Category information</p>
+            </div>
+          </div>
+          <div class="product-list">
+            <div class="product-row"><span class="product-name">1g Cart</span><b class="price">$20</b></div>
+            <div class="product-row"><span class="product-name">2g Cart</span><b class="price">$45</b></div>
+          </div>
+        </section>
+
+        <section class="product-section wide">
+          <div class="product-heading">
+            <div class="product-icon">✨</div>
+            <div>
+              <h3>Concentrate</h3>
+              <p>Category information</p>
+            </div>
+          </div>
+
+          <p class="choice-label">Styles listed:</p>
+          <div class="chips">
+            <span>Batter</span>
+            <span>Shatter</span>
+            <span>Caviar</span>
+          </div>
+
+          <div class="product-list">
+            <div class="product-row"><span class="product-name">1g</span><b class="price">$30</b></div>
+            <div class="product-row"><span class="product-name">2g</span><b class="price">$60</b></div>
+            <div class="product-row"><span class="product-name">3g</span><b class="price">$80</b></div>
+          </div>
+        </section>
+
+        <section class="product-section">
+          <div class="product-heading">
+            <div class="product-icon">⚡</div>
+            <div>
+              <h3>Disposables</h3>
+              <p>Category information</p>
+            </div>
+          </div>
+          <div class="product-row">
+            <span class="product-name">Disposable Vape<small class="product-detail">1 gram</small></span>
+            <b class="price">$80</b>
+          </div>
+        </section>
+
+        <section class="product-section">
+          <div class="product-heading">
+            <div class="product-icon">💧</div>
+            <div>
+              <h3>Tincture</h3>
+              <p>Category information</p>
+            </div>
+          </div>
+          <div class="product-row">
+            <span class="product-name">Tincture<small class="product-detail">1,000 mg</small></span>
+            <b class="price">$40</b>
+          </div>
+        </section>
+
+        <section class="product-section wide">
+          <div class="product-heading">
+            <div class="product-icon">🍬</div>
+            <div>
+              <h3>Edibles</h3>
+              <p>Category information</p>
+            </div>
+          </div>
+
+          <div class="product-list">
+            <div class="product-row">
+              <span class="product-name">Gummies
+                <small class="product-detail">300 mg pack · 10 gummies per pack · 30 mg per gummy</small>
+              </span>
+              <b class="price">$26</b>
+            </div>
+
+            <div class="product-row">
+              <span class="product-name">Milk Chocolate Bar
+                <small class="product-detail">1,000 mg whole bar · 100 mg per piece</small>
+              </span>
+              <b class="price">$62 ea</b>
+            </div>
+
+            <div class="product-row">
+              <span class="product-name">Drinks
+                <small class="product-detail">100 mg each</small>
+              </span>
+              <b class="price">$22 ea</b>
+            </div>
+          </div>
+        </section>
+
+        <section class="product-section wide">
+          <div class="product-heading">
+            <div class="product-icon">🛍️</div>
+            <div>
+              <h3>Accessories</h3>
+              <p>Additional products</p>
+            </div>
+          </div>
+
+          <div class="product-list">
+            <div class="product-row">
+              <span class="product-name">Bic Lighters</span>
+              <b class="price">$5 ea</b>
+            </div>
+            <div class="product-row">
+              <span class="product-name">Bongs</span>
+              <b class="price">$450</b>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <section class="page" id="about">
+      <div class="section-heading">
+        <div class="eyebrow">Our Story</div>
+        <h2>About Pandaman</h2>
+        <p>A little more about the brand.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="about-panda">🐼</div>
+        <h2>Pandaman Wellness</h2>
+        <p>
+          Pandaman Wellness is built around a recognizable identity,
+          a clean presentation, and a straightforward browsing experience.
+        </p>
+        <p>
+          Explore the website to learn more about the brand and its
+          different product categories.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section class="page" id="contact">
+      <div class="section-heading">
+        <div class="eyebrow">Get In Touch</div>
+        <h2>Contact</h2>
+        <p>Find the contact information below.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="about-panda">📞</div>
+        <h2>Stay Connected</h2>
+        <p>Use the contact details below to reach Pandaman Wellness.</p>
+
+        <a class="contact-number" href="tel:+14017539860">
+          (401) 753-9860
+        </a>
+
+        <div class="contact-actions">
+          <a class="contact-button" href="tel:+14017539860">
+            Call
+          </a>
+          <a class="contact-button secondary" href="sms:+14017539860">
+            Text
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <strong>PANDAMAN WELLNESS</strong>
+    <span>Premium · Modern · Refined</span>
+    <p style="margin-top:8px">© <span id="year"></span> Pandaman Wellness</p>
+  </footer>
+
+  <script>
+    (() => {
+      const pages = ["menu", "about", "contact"];
+      const links = document.querySelectorAll("#nav a");
+
+      function showPage() {
+        let current = location.hash.slice(1);
+
+        if (!pages.includes(current)) {
+          current = "menu";
+        }
+
+        pages.forEach(id => {
+          document.getElementById(id).classList.toggle(
+            "active",
+            id === current
+          );
+        });
+
+        links.forEach(link => {
+          const active = link.getAttribute("href") === "#" + current;
+          link.classList.toggle("active", active);
+
+          if (active) {
+            link.setAttribute("aria-current", "page");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      window.addEventListener("hashchange", showPage);
+      showPage();
+
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
+    })();
+  </script>
+
+</body>
+</html>
