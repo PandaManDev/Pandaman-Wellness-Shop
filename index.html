@@ -1,491 +1,210 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1612">
-  <meta name="description" content="PandaMan Wellness Shop — premium wellness, delivered with care.">
-  <title>PandaMan Wellness Shop</title>
-
-  <link rel="icon" href="canvas-removebg-preview.png">
-
-  <style>
-    :root {
-      --ink: #f7f5ed;
-      --muted: #b7c1ba;
-      --forest: #0b1612;
-      --lime: #c8f36a;
-      --line: rgba(255, 255, 255, .11);
-      --card: rgba(255, 255, 255, .055);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 78% 18%, rgba(200, 243, 106, .11), transparent 24rem),
-        radial-gradient(circle at 15% 90%, rgba(72, 139, 105, .15), transparent 28rem),
-        var(--forest);
-      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    .nav {
-      width: min(1180px, calc(100% - 40px));
-      height: 92px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-    }
-
-    .brand img {
-      width: 54px;
-      height: 54px;
-      object-fit: contain;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .nav-links a {
-      transition: color .2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--ink);
-    }
-
-    .shop-button {
-      padding: 12px 18px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--ink) !important;
-      background: rgba(255, 255, 255, .04);
-    }
-
-    .hero {
-      width: min(1180px, calc(100% - 40px));
-      min-height: 620px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: center;
-      gap: 48px;
-      padding: 48px 0 72px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 24px;
-      color: var(--lime);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 28px;
-      height: 1px;
-      background: var(--lime);
-    }
-
-    h1 {
-      max-width: 700px;
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(58px, 7.5vw, 104px);
-      line-height: .91;
-      letter-spacing: -.065em;
-      font-weight: 700;
-    }
-
-    h1 em {
-      color: var(--lime);
-      font-style: normal;
-      font-weight: inherit;
-    }
-
-    .hero-copy {
-      max-width: 540px;
-      margin: 28px 0 34px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.7;
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      min-height: 54px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 0 22px;
-      border-radius: 999px;
-      font-weight: 800;
-      transition: transform .2s ease, background .2s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .button.primary {
-      color: #102015;
-      background: var(--lime);
-    }
-
-    .button.secondary {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, .035);
-    }
-
-    .visual {
-      position: relative;
-      min-height: 520px;
-      display: grid;
-      place-items: center;
-    }
-
-    .visual::before {
-      content: "";
-      position: absolute;
-      width: 430px;
-      height: 430px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, rgba(200, 243, 106, .28), rgba(200, 243, 106, .04));
-      border: 1px solid rgba(200, 243, 106, .2);
-      box-shadow: 0 30px 100px rgba(0, 0, 0, .35);
-    }
-
-    .visual::after {
-      content: "";
-      position: absolute;
-      inset: 12% 4% 0;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      transform: rotate(-12deg);
-    }
-
-    .visual img {
-      position: relative;
-      z-index: 2;
-      width: 390px;
-      filter: drop-shadow(0 35px 45px rgba(0, 0, 0, .35));
-      animation: float 5s ease-in-out infinite;
-    }
-
-    .badge {
-      position: absolute;
-      z-index: 3;
-      right: 2%;
-      bottom: 12%;
-      width: 130px;
-      height: 130px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      color: var(--forest);
-      background: var(--lime);
-      font-family: Georgia, serif;
-      font-size: 18px;
-      line-height: 1.15;
-      text-align: center;
-      transform: rotate(8deg);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, .25);
-    }
-
-    .proof {
-      width: min(1180px, calc(100% - 40px));
-      margin: 0 auto 72px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      scroll-margin-top: 24px;
-    }
-
-    .proof-item {
-      padding: 28px 32px;
-    }
-
-    .proof-item + .proof-item {
-      border-left: 1px solid var(--line);
-    }
-
-    .proof strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 22px;
-    }
-
-    .proof span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    #shop,
-    #contact {
-      margin-bottom: 72px;
-    }
-
-    #shop {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    #contact {
-      grid-template-columns: 1fr;
-      margin-bottom: 48px;
-    }
-
-    #contact a {
-      color: var(--lime);
-      font-weight: 700;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0) rotate(-2deg);
-      }
-      50% {
-        transform: translateY(-14px) rotate(2deg);
-      }
-    }
-
-    @media (max-width: 850px) {
-      .nav {
-        height: 78px;
-      }
-
-      .nav-links a:not(.shop-button) {
-        display: none;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding-top: 32px;
-      }
-
-      h1,
-      .hero-copy {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .eyebrow,
-      .actions {
-        justify-content: center;
-      }
-
-      .visual {
-        min-height: 440px;
-      }
-
-      .visual::before {
-        width: 340px;
-        height: 340px;
-      }
-
-      .visual img {
-        width: 320px;
-      }
-
-      .proof,
-      #shop {
-        grid-template-columns: 1fr;
-      }
-
-      .proof-item + .proof-item {
-        border-left: 0;
-        border-top: 1px solid var(--line);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .nav,
-      .hero,
-      .proof {
-        width: min(100% - 28px, 1180px);
-      }
-
-      .brand span {
-        display: none;
-      }
-
-      h1 {
-        font-size: 52px;
-      }
-
-      .hero-copy {
-        font-size: 16px;
-      }
-
-      .actions {
-        display: grid;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .visual {
-        min-height: 380px;
-      }
-
-      .visual::before {
-        width: 300px;
-        height: 300px;
-      }
-
-      .visual img {
-        width: 280px;
-      }
-
-      .badge {
-        width: 108px;
-        height: 108px;
-        right: 0;
-        font-size: 15px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .visual img {
-        animation: none;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <header class="nav">
-    <a class="brand" href="#" aria-label="PandaMan Wellness Shop home">
-      <img src="canvas-removebg-preview.png" alt="PandaMan Wellness Shop logo">
-      <span>PandaMan</span>
-    </a>
-
-    <nav class="nav-links" aria-label="Main navigation">
-      <a href="#shop">Shop</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a class="shop-button" href="#shop">View menu</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <div>
-        <span class="eyebrow">Premium wellness</span>
-        <h1 id="hero-title">Feel good.<br><em>Live well.</em></h1>
-
-        <p class="hero-copy">
-          Thoughtfully selected wellness essentials in a calm, welcoming space.
-          Quality you can feel, with care you can trust.
-        </p>
-
-        <div class="actions">
-          <a class="button primary" href="#shop">
-            Explore the menu
-            <span aria-hidden="true">→</span>
-          </a>
-          <a class="button secondary" href="#about">Our story</a>
-        </div>
-      </div>
-
-      <div class="visual" aria-label="PandaMan Wellness Shop logo display">
-        <img src="canvas-removebg-preview.png" alt="PandaMan Wellness Shop">
-        <div class="badge">Premium<br>quality</div>
-      </div>
-    </section>
-
-    <section class="proof" id="about" aria-label="Store highlights">
-      <div class="proof-item">
-        <strong>Curated quality</strong>
-        <span>Selected with care and intention</span>
-      </div>
-
-      <div class="proof-item">
-        <strong>Friendly guidance</strong>
-        <span>Clear answers from real people</span>
-      </div>
-
-      <div class="proof-item">
-        <strong>Easy ordering</strong>
-        <span>A smooth experience, start to finish</span>
-      </div>
-    </section>
-
-    <section class="proof" id="shop" aria-labelledby="shop-title">
-      <div class="proof-item">
-        <strong id="shop-title">Wellness essentials</strong>
-        <span>Explore our thoughtfully selected products in store.</span>
-      </div>
-
-      <div class="proof-item">
-        <strong>Personal guidance</strong>
-        <span>Our team is happy to help you find what you need.</span>
-      </div>
-    </section>
-
-    <section class="proof" id="contact" aria-labelledby="contact-title">
-      <div class="proof-item">
-        <strong id="contact-title">Contact PandaMan</strong>
-        <span>
-          Call us at <a href="tel:+15551234567">+1 (555) 123-4567</a>
-          or email <a href="mailto:hello@pandaman.com">hello@pandaman.com</a>.
-        </span>
-      </div>
-    </section>
-  </main>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pandaman Wellness Menu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;800&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#07020f;--card:#12062a;--line:#a63cff;--glow:#c06bff;--txt:#f4eaff;--mut:#b99ae0;--pill:#1d0a3d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#2a0a55 0,var(--bg) 60%);color:var(--txt);font-family:Georgia,'Trebuchet MS',sans-serif;padding:16px}
+.wrap{max-width:900px;margin:0 auto}
+.notice{background:linear-gradient(90deg,#7a18d6,#c026d3);border-radius:14px;padding:12px 16px;text-align:center;font-weight:700;box-shadow:0 0 22px #a63cff99;margin-bottom:18px}
+header{text-align:center;margin-bottom:20px}
+.crown{font-size:34px}
+h1{margin:0;font-size:clamp(38px,9vw,70px);font-style:italic;background:linear-gradient(180deg,#fff,#c77dff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px #a63cff)}
+.sub{color:#d36bff;letter-spacing:.15em;font-size:12px;font-weight:700}
+section{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:14px 16px 16px;margin-bottom:16px;box-shadow:0 0 18px #a63cff66,inset 0 0 18px #a63cff33}
+h2{margin:0 0 10px;text-align:center;font-size:30px;font-style:italic;color:#fff;text-shadow:0 0 12px var(--glow)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.two section{margin:0}
+.flower div{text-align:center;font-weight:700}
+.flower small{display:block;color:var(--mut);font-weight:400}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0}
+.row span small{display:block;color:var(--mut);font-size:12.5px;font-weight:400;line-height:1.35}
+.row span{font-weight:700;font-size:17px}
+.p{background:var(--pill);border:2px solid var(--line);border-radius:12px;padding:4px 14px;font-weight:800;font-size:20px;min-width:70px;text-align:center;box-shadow:0 0 10px #a63cff88;white-space:nowrap}
+.flower .p{display:inline-block;margin-top:6px}
+.choose{text-align:center;color:#ffd6ff;font-size:14px;margin:0 0 8px}
+.chips{display:flex;gap:8px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
+.chips b{border:1.5px solid var(--line);border-radius:20px;padding:3px 14px;background:var(--pill);font-size:14px}
+.sep{border-top:1px dashed #a63cff88;margin:6px 0}
+footer{text-align:center;letter-spacing:.35em;color:#d36bff;font-weight:700;font-size:12px;margin-top:20px}
+body{background:radial-gradient(ellipse at 20% 0,#3d0f7a 0,transparent 55%),radial-gradient(ellipse at 90% 40%,#5a0f8f 0,transparent 50%),var(--bg);background-attachment:fixed;overflow-x:hidden}
+body::before,body::after{content:'';position:fixed;width:60vmax;height:60vmax;border-radius:50%;filter:blur(70px);opacity:.35;z-index:0;pointer-events:none;animation:drift 18s ease-in-out infinite alternate}
+body::before{background:#9d2bff;top:-20vmax;left:-20vmax}
+body::after{background:#e040fb;bottom:-25vmax;right:-20vmax;animation-delay:-9s}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+.wrap{position:relative;z-index:1}
+.notice{animation:pulse 2.4s ease-in-out infinite;letter-spacing:.04em;border:2px solid #f0b3ff;text-shadow:0 0 8px #fff8}
+@keyframes pulse{50%{box-shadow:0 0 40px #e040fbcc,0 0 6px #fff6}}
+h1{font-size:clamp(44px,11vw,84px);line-height:1;padding:4px 0;background:linear-gradient(100deg,#fff 0,#e9b6ff 30%,#b44dff 55%,#fff 75%,#d98cff 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.crown{filter:drop-shadow(0 0 14px #e040fb);animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-6px)}}
+section{background:linear-gradient(160deg,#1a0838ee,#0b0318ee);backdrop-filter:blur(6px);transition:transform .25s,box-shadow .25s;border-image:none;border-color:#b24dff}
+section:hover{transform:translateY(-3px);box-shadow:0 0 32px #c06bffaa,inset 0 0 22px #a63cff55}
+h2::before{content:'\1F33F  ';font-size:.6em;filter:hue-rotate(250deg) saturate(2)}
+h2::after{content:'  \1F33F';font-size:.6em;filter:hue-rotate(250deg) saturate(2)}
+.p{background:linear-gradient(135deg,#2a0d57,#4a1296);color:#fff;text-shadow:0 0 8px #e9b6ff;transition:transform .2s}
+.row:hover .p,.flower div:hover .p{transform:scale(1.08)}
+.chips b{box-shadow:0 0 10px #a63cff88;color:#ffd6ff}
+.sub{text-shadow:0 0 10px #d36bff}
+footer{text-shadow:0 0 12px #d36bff}
+@media(prefers-reduced-motion:reduce){*,body::before,body::after{animation:none!important;transition:none!important}}
+.gate{position:fixed;inset:0;z-index:99;background:radial-gradient(ellipse at center,#2a0a55,#07020f 70%);display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
+.gate,.gate.hide{display:none!important}
+.gbox{max-width:420px;border:2px solid var(--line);border-radius:24px;padding:28px 22px;background:#12062aee;box-shadow:0 0 40px #a63cffaa,inset 0 0 24px #a63cff44}
+.gbox h3{font-size:34px;font-style:italic;margin:6px 0;text-shadow:0 0 14px var(--glow)}
+.gbox p{color:var(--mut);margin:8px 0 18px}
+.gbtn{font:inherit;font-weight:800;font-size:17px;color:#fff;border:2px solid #f0b3ff;border-radius:14px;padding:10px 22px;margin:4px;cursor:pointer;background:linear-gradient(135deg,#7a18d6,#c026d3);box-shadow:0 0 16px #a63cffaa}
+.gbtn.no{background:var(--pill);border-color:var(--line)}
+body{font-family:'Poppins','Trebuchet MS',sans-serif}
+h1,h2,.gbox h3{font-family:'Pacifico','Brush Script MT',cursive;font-style:normal;font-weight:400}
+h1{font-size:clamp(46px,12vw,92px)}
+h2{font-size:36px;margin-bottom:12px}
+.wrap{max-width:960px}
+.panda{font-size:80px;width:150px;height:150px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:radial-gradient(circle,#4a1296,#12062a 70%);border:3px solid var(--line);box-shadow:0 0 40px #c06bff,inset 0 0 30px #a63cff88;animation:float 3s ease-in-out infinite}
+.hero-crown{font-size:38px;margin-bottom:-14px;position:relative;z-index:2;filter:drop-shadow(0 0 12px #e040fb)}
+.tag{display:inline-block;margin-top:12px;padding:5px 18px;border:1.5px solid var(--line);border-radius:20px;background:#a63cff22;color:#f0c8ff;font-size:13px;letter-spacing:.2em;font-weight:600}
+.leaf{position:fixed;bottom:-50px;font-size:26px;opacity:.45;z-index:0;pointer-events:none;filter:hue-rotate(250deg) saturate(2);animation:rise 16s linear infinite}
+@keyframes rise{to{transform:translateY(-120vh) rotate(360deg)}}
+.row{border-bottom:1px solid #a63cff33}
+.row:last-child{border-bottom:0}
+.row span{font-weight:600}
+.p{font-size:21px;font-weight:800;border-color:#d27bff}
+.flower div{background:#ffffff08;border:1px solid #a63cff66;border-radius:16px;padding:14px 6px;transition:transform .2s,background .2s}
+.flower div:hover{transform:translateY(-3px);background:#a63cff22}
+.flower small{font-size:12px}
+.sub{font-size:11px;line-height:1.7}
+footer{margin-bottom:24px}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:0 0 18px}
+nav a{color:#f0c8ff;text-decoration:none;font-weight:600;padding:8px 18px;border:1.5px solid var(--line);border-radius:22px;background:#12062acc;transition:.2s}
+nav a:hover{box-shadow:0 0 14px #c06bff}
+nav a.on{background:linear-gradient(135deg,#7a18d6,#c026d3);color:#fff;border-color:#f0b3ff;box-shadow:0 0 16px #a63cffaa}
+.page{display:none}.page.on{display:block}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:420px;margin:14px auto}
+.st{aspect-ratio:1;border-radius:50%;border:2px dashed var(--line);display:flex;align-items:center;justify-content:center;font-size:26px;background:#ffffff08}
+.st.f{border-style:solid;background:radial-gradient(circle,#7a18d6,#2a0d57);box-shadow:0 0 14px #c06bff}
+.txt{color:var(--mut);line-height:1.7;text-align:center;margin:6px 0}
+.btns{text-align:center;margin-top:8px}
+</style></head><body>
+<div class="gate" id="gate"><div class="gbox"><div class="crown">🐼</div><h3>Pandaman Wellness</h3><p id="gmsg">You must be 21 or older to view this menu. Are you 21+?</p><div id="gbtns"><button class="gbtn" id="yes">Yes, I’m 21+</button><button class="gbtn no" id="no">No</button></div></div></div>
+<div class="wrap">
+<div class="notice">🎁 You will get a free pre-roll after 10 purchases!</div>
+<section style="text-align:center;padding:12px"><p class="choose" style="margin:0 0 6px;font-weight:600">Call or text to order</p><a class="gbtn" href="tel:+14017539860" style="text-decoration:none;display:inline-block;font-size:20px">📞 (401) 753-9860</a> <a class="gbtn no" href="sms:+14017539860" style="text-decoration:none;display:inline-block;font-size:20px">💬 Text</a></section>
+<span class="leaf" style="left:6%">🌿</span><span class="leaf" style="left:24%;animation-delay:-5s">🌿</span><span class="leaf" style="left:46%;animation-delay:-10s">🌿</span><span class="leaf" style="left:68%;animation-delay:-3s">🌿</span><span class="leaf" style="left:88%;animation-delay:-8s">🌿</span>
+<header><div class="hero-crown">👑</div><div class="panda">🐼</div><h1>Pandaman Wellness</h1><div class="tag">PREMIUM CANNABIS PRODUCTS</div><div class="sub" style="margin-top:14px">FLOWER · PRE-ROLLS · CARTS · CONCENTRATE · DISPOSABLES · EDIBLES · TINCTURE</div></header>
+<nav id="nav"><a href="#menu">🌿 Menu</a><a href="#about">🐼 About</a><a href="#contact">📞 Contact</a></nav>
+
+<div class="page on" id="menu">
+<section><h2>Flower</h2><div class="grid flower">
+<div>Eighth<small>(3.5 g)</small><span class="p">$20</span></div>
+<div>Quarter<small>(7 g)</small><span class="p">$80</span></div>
+<div>Half Ounce<small>(14 g)</small><span class="p">$120</span></div>
+<div>Ounce<small>(28 g)</small><span class="p">$180</span></div></div></section>
+
+<div class="two">
+<section><h2>Pre-Rolls</h2>
+<div class="row"><span>1 Pre-Roll</span><b class="p">$15</b></div>
+<div class="row"><span>2 Pre-Rolls</span><b class="p">$30</b></div>
+<div class="row"><span>3 Pre-Rolls</span><b class="p">$60</b></div></section>
+<section><h2>Carts</h2>
+<div class="row"><span>1g Cart</span><b class="p">$20</b></div>
+<div class="row"><span>2g Cart</span><b class="p">$45</b></div></section>
+</div>
+
+<section style="margin-top:16px"><h2>Concentrate</h2>
+<p class="choose">Your choice of style:</p>
+<div class="chips"><b>Batter</b><b>Shatter</b><b>Caviar</b></div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+<div class="row"><span>1g</span><b class="p">$30</b></div>
+<div class="row"><span>2g</span><b class="p">$60</b></div>
+<div class="row"><span>3g</span><b class="p">$80</b></div></div></section>
+
+<div class="two">
+<section><h2>Disposables</h2>
+<div class="row"><span>Disposable Vape<small>1 gram</small></span><b class="p">$80</b></div></section>
+<section><h2>Tincture</h2>
+<div class="row"><span>Tincture<small>1,000 mg</small></span><b class="p">$40</b></div></section>
+</div>
+
+<section style="margin-top:16px"><h2>Edibles</h2>
+<div class="row"><span>Gummies<small>300 mg pack · 10 gummies per pack · 30 mg per gummy</small></span><b class="p">$26</b></div><div class="sep"></div>
+<div class="row"><span>Milk Chocolate Bar<small>1,000 mg whole bar · 100 mg per piece</small></span><b class="p">$62 ea</b></div><div class="sep"></div>
+<div class="row"><span>Drinks<small>100 mg each</small></span><b class="p">$22 ea</b></div></section>
+
+<section><h2>Accessories</h2>
+<div class="row"><span>Bic Lighters</span><b class="p">$5 ea</b></div></section>
+
+</div>
+<div class="page" id="about"><section><h2>About Us</h2>
+<div class="panda" style="width:110px;height:110px;font-size:56px">🐼</div>
+<p class="txt">Pandaman Wellness brings you premium cannabis products: flower, pre-rolls, carts, concentrate, disposables, edibles and tinctures.</p>
+<p class="txt">Browse the menu, pick what you like, then call or text to order. Every 10th purchase earns you a free pre-roll.</p></section></div>
+<div class="page" id="contact"><section><h2>Contact</h2>
+<p class="txt">Ready to order? Call or text us anytime.</p>
+<div class="btns"><a class="gbtn" href="tel:+14017539860" style="text-decoration:none;display:inline-block;font-size:22px">📞 (401) 753-9860</a> <a class="gbtn no" href="sms:+14017539860" style="text-decoration:none;display:inline-block;font-size:22px">💬 Text</a></div>
+<p class="txt" style="margin-top:14px">Tell us what you want from the menu, and we will confirm your order.</p></section></div>
+<footer>PREMIUM CANNABIS PRODUCTS</footer>
+</div>
+<script>
+(function(){var g=document.getElementById('gate');
+try{if(sessionStorage.getItem('age21')==='1'){g.classList.add('hide');}}catch(e){}
+document.getElementById('yes').onclick=function(){try{sessionStorage.setItem('age21','1');}catch(e){}g.classList.add('hide');};
+document.getElementById('no').onclick=function(){document.getElementById('gmsg').textContent='Sorry, you must be 21 or older to enter.';document.getElementById('gbtns').style.display='none';};
+})();
+</script>
+<script>
+(function(){
+var names=['menu','about','contact'];
+function show(){var h=location.hash.replace('#','');if(names.indexOf(h)<0)h='menu';
+names.forEach(function(n){document.getElementById(n).classList.toggle('on',n===h);});
+var a=document.querySelectorAll('#nav a');for(var i=0;i<a.length;i++)a[i].classList.toggle('on',a[i].getAttribute('href')==='#'+h);window.scrollTo(0,0);}
+window.addEventListener('hashchange',show);show();
+return;var c=0;
+var box=document.getElementById('stamps');
+function draw(){box.innerHTML='';for(var i=0;i<10;i++){var d=document.createElement('div');d.className='st'+(i<c?' f':'');d.textContent=i<c?'\uD83D\uDC3C':(i+1);box.appendChild(d);}
+document.getElementById('smsg').textContent=c>=10?'\uD83C\uDF89 You earned a free pre-roll! Mention it when you order.':c+' of 10 stamps';}
+window.__draw=function(n){c=n;draw();};
+
+
+
+draw();
+})();
+</script>
+<script>
+(async function(){return;
+var note=document.getElementById('note');
+try{
+if(!window.claude)throw 0;
+var u=await claude.use('user'),db=await claude.use('db');
+if(!u||!db)throw 0;
+var id=await u.id();if(!id)throw 0;
+var admin=await u.canEdit();
+try{await db.doc('members/'+id).set({joined:Date.now()});}catch(e){}
+note.textContent=admin?'Signed in as staff.':'Signed in. Staff will stamp your card when you buy.';
+db.doc('stamps/'+id).onSnapshot(function(s){var d=s.data();window.__draw((d&&d.count)||0);});
+if(!admin)return;
+var counts={},ids=[];
+document.getElementById('admin').style.display='block';
+var list=document.getElementById('list');
+async function render(){
+var ps=ids.length?await u.profiles(ids):{};
+list.innerHTML='';
+ids.forEach(function(i){
+var n=counts[i]||0;
+var row=document.createElement('div');row.className='row';
+var nm=document.createElement('span');nm.textContent=((ps[i]&&ps[i].name)||'Customer')+' ('+n+'/10)';
+var bx=document.createElement('div');
+function mk(t,v,cls){var b=document.createElement('button');b.className='gbtn'+(cls?' no':'');b.style.padding='4px 12px';b.style.fontSize='15px';b.textContent=t;b.onclick=function(){db.doc('stamps/'+i).set({count:v}).catch(function(){alert('Could not save stamp.');});};bx.appendChild(b);}
+mk('+ Stamp',Math.min(10,n+1));mk('Undo',Math.max(0,n-1),1);mk('Reset',0,1);
+row.appendChild(nm);row.appendChild(bx);list.appendChild(row);});
+if(!ids.length)list.innerHTML='<p class="txt">No customers have signed in yet.</p>';
+}
+db.collection('members').onSnapshot(function(s){ids=s.docs.map(function(d){return d.id;});render();});
+db.collection('stamps').onSnapshot(function(s){counts={};s.docs.forEach(function(d){counts[d.id]=(d.data()||{}).count||0;});render();});
+}catch(e){note.textContent='Sign in with your account to see your rewards card.';}
+})();
+</script></body></html>
