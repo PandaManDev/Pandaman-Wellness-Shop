@@ -274,6 +274,14 @@ footer{letter-spacing:.2em;font-size:11px;padding-bottom:calc(24px + env(safe-ar
 .pf-on .pfx{display:none!important}
 .pf-on section.pfhide{display:none!important}
 @media print{html::before,html::after,.bg,.leaf,.loader,.pop,.toast,.totop,.prog,.cglow,.topbar,#find,#pf,#cats,.heart,.pickbar,.logo::before{display:none!important}html,body{background:#fff!important;color:#000!important}section{background:#fff!important;box-shadow:none!important;border:1px solid #999!important;break-inside:avoid;animation:none!important}h1,h2,.tb-brand{background:none!important;-webkit-text-fill-color:#000;color:#000!important;filter:none!important;text-shadow:none!important}.p{background:#fff!important;color:#000!important;border:1px solid #000!important;box-shadow:none!important;text-shadow:none!important;animation:none!important}.row span small,.flower small,.txt,.sub,footer{color:#333!important;text-shadow:none!important}}
+.qty{display:none;align-items:center;gap:6px}
+.qty button{width:34px;height:34px;border-radius:50%;border:1.5px solid #b24dff;background:#a63cff22;color:#fff;font-size:20px;line-height:1;cursor:pointer}
+.qty span{min-width:28px;text-align:center;font-weight:800;font-size:18px}
+.favs-only .fav .qty{display:inline-flex}
+.favs-only .row.fav{flex-wrap:wrap}
+.favs-only .row.fav .qty{flex:0 0 100%;justify-content:flex-end;padding:2px 0 4px}
+.favs-only .flower>.fav .qty{display:flex;justify-content:center;margin-top:10px}
+.ptot{flex:0 0 100%;text-align:center;font-weight:800;font-size:18px;color:#ffd6ff;text-shadow:0 0 10px #e040fb}
 .loader{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at center,#3d0f7a 0,#07020f 70%);transition:opacity .7s ease,visibility .7s;overflow:hidden}
 .loader.done{opacity:0;visibility:hidden}
 .ld-ring{position:relative;width:170px;height:170px;display:flex;align-items:center;justify-content:center}
@@ -443,7 +451,10 @@ var KEY='pm_favs',favs=[];
 function rc(){try{var m=document.cookie.match(/(?:^|; )pm_favs=([^;]*)/);return m?decodeURIComponent(m[1]):null;}catch(e){return null;}}
 function rl(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
 try{favs=JSON.parse(rc()||rl()||'[]');if(!Array.isArray(favs))favs=[];}catch(e){favs=[];}
-function save(){var j=JSON.stringify(favs);try{document.cookie='pm_favs='+encodeURIComponent(j)+'; max-age=31536000; path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');}catch(e){}try{localStorage.setItem(KEY,j);}catch(e){}}
+function rcq(){try{var m=document.cookie.match(/(?:^|; )pm_qty=([^;]*)/);return m?decodeURIComponent(m[1]):null;}catch(e){return null;}}
+function rlq(){try{return localStorage.getItem('pm_qty');}catch(e){return null;}}
+var qty={};try{qty=JSON.parse(rcq()||rlq()||'{}');if(!qty||typeof qty!=='object'||Array.isArray(qty))qty={};}catch(e){qty={};}
+function save(){var ex='; max-age=31536000; path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':''),j=JSON.stringify(favs),q=JSON.stringify(qty);try{document.cookie='pm_favs='+encodeURIComponent(j)+ex;document.cookie='pm_qty='+encodeURIComponent(q)+ex;}catch(e){}try{localStorage.setItem(KEY,j);localStorage.setItem('pm_qty',q);}catch(e){}}
 var items=[],on=false;
 menu.querySelectorAll('section').forEach(function(s){var h=s.querySelector('h2'),t=h?h.textContent:'';
 s.querySelectorAll('.row,.flower>div').forEach(function(it){
@@ -451,8 +462,14 @@ var key=t+'|'+it.textContent.replace(/\s+/g,' ').trim();
 var b=document.createElement('button');b.type='button';b.className='heart';b.setAttribute('aria-label','Save to My Picks');b.textContent='\u2661';
 var pill=it.classList.contains('row')?it.querySelector('.p'):null;
 if(pill)it.insertBefore(b,pill);else it.appendChild(b);
-items.push({el:it,key:key,btn:b});
-b.addEventListener('click',function(e){e.stopPropagation();var i=favs.indexOf(key);if(i<0)favs.push(key);else favs.splice(i,1);save();sync();if(navigator.vibrate)navigator.vibrate(10);});
+var pe=it.querySelector('.p'),pm=pe&&pe.textContent.match(/\d+/),q=document.createElement('div');q.className='qty';
+var mn=document.createElement('button'),nn=document.createElement('span'),pl=document.createElement('button');
+mn.type='button';pl.type='button';mn.textContent='\u2212';pl.textContent='+';mn.setAttribute('aria-label','Decrease quantity');pl.setAttribute('aria-label','Increase quantity');nn.textContent='1';
+q.appendChild(mn);q.appendChild(nn);q.appendChild(pl);it.appendChild(q);
+mn.addEventListener('click',function(e){e.stopPropagation();qty[key]=Math.max(1,(qty[key]||1)-1);save();sync();});
+pl.addEventListener('click',function(e){e.stopPropagation();qty[key]=Math.min(99,(qty[key]||1)+1);save();sync();});
+items.push({el:it,key:key,btn:b,nn:nn,v:pm?parseInt(pm[0],10):0});
+b.addEventListener('click',function(e){e.stopPropagation();var i=favs.indexOf(key);if(i<0)favs.push(key);else{favs.splice(i,1);delete qty[key];}save();sync();if(navigator.vibrate)navigator.vibrate(10);});
 });});
 var fb=document.createElement('button');fb.type='button';fb.className='fb';cats.insertBefore(fb,cats.firstChild);
 var none=document.createElement('div');none.className='nores';none.textContent='No picks yet. Tap the \u2661 on any item to save it here.';
@@ -460,16 +477,16 @@ menu.insertBefore(none,menu.querySelector('section'));
 var bar=document.createElement('div');bar.className='pickbar';
 var tx=document.createElement('a');tx.className='gbtn';tx.textContent='\uD83D\uDCAC Text my picks';
 var cl=document.createElement('button');cl.type='button';cl.className='gbtn no';cl.textContent='Clear picks';
-bar.appendChild(tx);bar.appendChild(cl);menu.insertBefore(bar,menu.querySelector('section'));
-function msg(){var L=[];items.forEach(function(o){if(favs.indexOf(o.key)<0)return;var c=o.el.cloneNode(true),p=c.querySelector('.p'),pr=p?p.textContent:'';[].forEach.call(c.querySelectorAll('.heart,.p'),function(x){x.remove();});[].forEach.call(c.querySelectorAll('small'),function(s){s.textContent=' '+s.textContent;});var nm=c.textContent.replace(/\s+/g,' ').trim().split(' \u00B7 ')[0];var sec=o.el.closest('section').querySelector('h2').textContent;L.push('- '+sec+': '+nm+' ('+pr+')');});return 'Hi Pandaman Wellness! I\u2019d like to order:\n'+L.join('\n');}
-function sync(){var n=0;
-items.forEach(function(o){var f=favs.indexOf(o.key)>-1;o.el.classList.toggle('fav',f);o.btn.textContent=f?'\u2665':'\u2661';o.btn.setAttribute('aria-pressed',f?'true':'false');if(f)n++;});
+var tl=document.createElement('div');tl.className='ptot';bar.appendChild(tl);bar.appendChild(tx);bar.appendChild(cl);menu.insertBefore(bar,menu.querySelector('section'));
+function msg(){var L=[],tot=0;items.forEach(function(o){if(favs.indexOf(o.key)<0)return;var c=o.el.cloneNode(true),p=c.querySelector('.p'),pr=p?p.textContent:'';[].forEach.call(c.querySelectorAll('.heart,.p,.qty'),function(x){x.remove();});[].forEach.call(c.querySelectorAll('small'),function(s){s.textContent=' '+s.textContent;});var nm=c.textContent.replace(/\s+/g,' ').trim().split(' \u00B7 ')[0];var sec=o.el.closest('section').querySelector('h2').textContent;var q=qty[o.key]||1,v=parseInt(pr.replace(/\D/g,''),10)||0;tot+=v*q;L.push('- '+sec+': '+nm+(q>1?' x'+q:'')+' ('+pr+')');});return 'Hi Pandaman Wellness! I\u2019d like to order:\n'+L.join('\n')+'\nEstimated total: $'+tot;}
+function sync(){var n=0,tot=0;
+items.forEach(function(o){var f=favs.indexOf(o.key)>-1;o.el.classList.toggle('fav',f);o.btn.textContent=f?'\u2665':'\u2661';o.btn.setAttribute('aria-pressed',f?'true':'false');o.nn.textContent=qty[o.key]||1;if(f){n++;tot+=o.v*(qty[o.key]||1);}});
 menu.querySelectorAll('section').forEach(function(s){s.classList.toggle('nofav',!s.querySelector('.fav'));});
 fb.textContent='\u2764\uFE0F My Picks'+(n?' ('+n+')':'');
 fb.classList.toggle('sel',on);menu.classList.toggle('favs-only',on);
-none.style.display=(on&&!n)?'block':'none';bar.style.display=(on&&n)?'flex':'none';if(on&&n)tx.href='sms:+14017539860?&body='+encodeURIComponent(msg());}
+none.style.display=(on&&!n)?'block':'none';bar.style.display=(on&&n)?'flex':'none';tl.textContent='Estimated total: $'+tot;if(on&&n)tx.href='sms:+14017539860?&body='+encodeURIComponent(msg());}
 fb.addEventListener('click',function(){on=!on;sync();});
-cl.addEventListener('click',function(){favs.length=0;save();sync();});
+cl.addEventListener('click',function(){favs.length=0;qty={};save();sync();});
 sync();
 })();
 </script>
