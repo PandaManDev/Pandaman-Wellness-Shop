@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pandaman Wellness Menu">
 <meta name="twitter:description" content="Premium cannabis products. Browse the menu, then call or text to order. 21+ only.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%BC%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='96' fill='%23250a52'/%3E%3Ccircle cx='64' cy='76' r='17' fill='%23120a1f'/%3E%3Ccircle cx='136' cy='76' r='17' fill='%23120a1f'/%3E%3Ccircle cx='100' cy='116' r='50' fill='%23fff'/%3E%3Cellipse cx='82' cy='112' rx='11' ry='15' transform='rotate(25 82 112)' fill='%23120a1f'/%3E%3Cellipse cx='118' cy='112' rx='11' ry='15' transform='rotate(-25 118 112)' fill='%23120a1f'/%3E%3Ccircle cx='84' cy='110' r='4.5' fill='%23fff'/%3E%3Ccircle cx='116' cy='110' r='4.5' fill='%23fff'/%3E%3Cellipse cx='100' cy='127' rx='7.5' ry='5.5' fill='%23120a1f'/%3E%3Cpath d='M70 68l5-24 13 16 12-22 12 22 13-16 5 24z' fill='%23f5a623'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;800&display=swap">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#07020f;--card:#12062a;--line:#a63cff;--glow:#c06bff;--txt:#f4eaff;--mut:#b99ae0;--pill:#1d0a3d}
@@ -252,6 +252,28 @@ footer{letter-spacing:.2em;font-size:11px;padding-bottom:calc(24px + env(safe-ar
 .pe svg{width:96px;height:96px;display:block;margin:0 auto}
 @media(max-width:640px){.logo{width:150px}}
 @media(prefers-reduced-motion:reduce){.logo,.logo::before{animation:none}}
+.cicon{text-align:center;font-size:34px;line-height:1;margin-bottom:2px;filter:drop-shadow(0 0 12px #c06bff)}
+#cats button[data-i]::before{content:attr(data-i) ' '}
+.steps{list-style:none;margin:14px 0 6px;padding:0;display:grid;gap:10px;text-align:left}
+.steps li{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid #c06bff55;border-radius:16px;background:#ffffff08}
+.steps b{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#7a18d6,#c026d3);box-shadow:0 0 12px #c06bff99;font-size:15px}
+.steps span{color:#e9d6ff;line-height:1.4}
+.favs-only .sep{display:none}
+#cats button:first-child{margin-left:auto}
+#cats button:last-child{margin-right:auto}
+@media(hover:none){#cats button:hover:not(.on):not(.sel){background:#12062acc;color:#f0c8ff;box-shadow:none}nav a:hover:not(.on){background:transparent}#sbtn:hover{background:#a63cff22}}
+@media(max-width:640px){#menu section{scroll-margin-top:140px}}
+@media(max-width:640px),(hover:none){.page.on section{animation:rin .7s ease backwards}.p{animation:none}html::after{animation:none}}
+@media(prefers-reduced-motion:reduce){.page.on section{animation:none}}
+#pf{grid-column:1/-1;display:flex;gap:8px;overflow-x:auto;padding:0 2px 2px;scrollbar-width:none}
+#pf::-webkit-scrollbar{display:none}
+#pf button{flex:none;font:inherit;font-size:13px;font-weight:600;color:#f0c8ff;background:#12062acc;border:1.5px solid #b24dff66;border-radius:999px;padding:7px 14px;cursor:pointer;transition:background .2s,color .2s}
+#pf button.on{background:linear-gradient(135deg,#7a18d6,#c026d3);color:#fff;border-color:#f0b3ff;box-shadow:0 0 12px #c06bffaa}
+#pf button:first-child{margin-left:auto}
+#pf button:last-child{margin-right:auto}
+.pf-on .pfx{display:none!important}
+.pf-on section.pfhide{display:none!important}
+@media print{html::before,html::after,.bg,.leaf,.loader,.pop,.toast,.totop,.prog,.cglow,.topbar,#find,#pf,#cats,.heart,.pickbar,.logo::before{display:none!important}html,body{background:#fff!important;color:#000!important}section{background:#fff!important;box-shadow:none!important;border:1px solid #999!important;break-inside:avoid;animation:none!important}h1,h2,.tb-brand{background:none!important;-webkit-text-fill-color:#000;color:#000!important;filter:none!important;text-shadow:none!important}.p{background:#fff!important;color:#000!important;border:1px solid #000!important;box-shadow:none!important;text-shadow:none!important;animation:none!important}.row span small,.flower small,.txt,.sub,footer{color:#333!important;text-shadow:none!important}}
 .loader{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at center,#3d0f7a 0,#07020f 70%);transition:opacity .7s ease,visibility .7s;overflow:hidden}
 .loader.done{opacity:0;visibility:hidden}
 .ld-ring{position:relative;width:170px;height:170px;display:flex;align-items:center;justify-content:center}
@@ -325,6 +347,7 @@ footer{letter-spacing:.2em;font-size:11px;padding-bottom:calc(24px + env(safe-ar
 <p class="txt">Browse the menu, pick what you like, then call or text to order. Every 10th purchase earns you a free pre-roll.</p></section></div>
 <div class="page" id="contact"><section><h2>Contact</h2>
 <p class="txt">Ready to order? Call or text us anytime.</p>
+<ol class="steps"><li><b>1</b><span>Browse the menu and tap the ♡ on what you like.</span></li><li><b>2</b><span>Open My Picks and tap Text my picks, or just give us a call.</span></li><li><b>3</b><span>We’ll confirm your order.</span></li></ol>
 <div class="btns"><a class="gbtn" href="tel:+14017539860" style="text-decoration:none;display:inline-block;font-size:22px">📞 (401) 753-9860</a> <a class="gbtn no" href="sms:+14017539860" style="text-decoration:none;display:inline-block;font-size:22px">💬 Text</a></div>
 <p class="txt" style="margin-top:14px">Tell us what you want from the menu, and we will confirm your order.</p></section></div>
 <footer>PREMIUM CANNABIS PRODUCTS</footer>
@@ -334,7 +357,7 @@ footer{letter-spacing:.2em;font-size:11px;padding-bottom:calc(24px + env(safe-ar
 var names=['menu','about','contact'];
 function show(){var h=location.hash.replace('#','');if(names.indexOf(h)<0)h='menu';
 names.forEach(function(n){document.getElementById(n).classList.toggle('on',n===h);});
-var a=document.querySelectorAll('#nav a');for(var i=0;i<a.length;i++)a[i].classList.toggle('on',a[i].getAttribute('href')==='#'+h);window.scrollTo(0,0);}
+var a=document.querySelectorAll('#nav a');for(var i=0;i<a.length;i++)a[i].classList.toggle('on',a[i].getAttribute('href')==='#'+h);var r=document.documentElement;r.style.scrollBehavior='auto';window.scrollTo(0,0);r.style.scrollBehavior='';}
 window.addEventListener('hashchange',show);show();
 })();
 </script>
@@ -456,10 +479,10 @@ var gate=document.getElementById('gate'),SK='pm_welcome';
 var p=document.createElement('div');p.className='pop';p.setAttribute('role','dialog');p.setAttribute('aria-modal','true');p.setAttribute('aria-label','Welcome');
 p.innerHTML='<div class="pbox"><button class="px" type="button" aria-label="Close">\u2715</button><div class="pe"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#logo"/></svg></div><div class="pt">Welcome to Pandaman Wellness</div><p class="pp">Browse the menu and tap the \u2661 on anything you like to save it to My Picks. When you\u2019re ready, call or text to order.</p><button class="gbtn" type="button" data-x="1">Browse the menu</button><a class="gbtn no" href="#contact" data-x="1">Order info</a></div>';
 function esc(e){if(e.key==='Escape')close();}
-function close(){p.classList.remove('show');document.removeEventListener('keydown',esc);setTimeout(function(){p.remove();},400);}
+function close(){p.classList.remove('show');document.documentElement.style.overflow='';document.removeEventListener('keydown',esc);setTimeout(function(){p.remove();},400);}
 p.addEventListener('click',function(e){if(e.target===p||e.target.closest('.px')||e.target.closest('[data-x]'))close();});
 document.body.appendChild(p);
-var t=setInterval(function(){if(!document.getElementById('loader')&&(!gate||gate.classList.contains('hide'))){clearInterval(t);setTimeout(function(){p.classList.add('show');document.addEventListener('keydown',esc);var b=p.querySelector('.gbtn');if(b)b.focus({preventScroll:true});},400);}},300);
+var t=setInterval(function(){if(!document.getElementById('loader')&&(!gate||gate.classList.contains('hide'))){clearInterval(t);setTimeout(function(){p.classList.add('show');document.documentElement.style.overflow='hidden';document.addEventListener('keydown',esc);var b=p.querySelector('.gbtn');if(b)b.focus({preventScroll:true});},400);}},300);
 })();
 </script>
 <script>
@@ -476,6 +499,44 @@ function fb(){if(legacy(u))toast('Link copied \u2713');else toast('Copy this lin
 function copy(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(function(){toast('Link copied \u2713');},fb);}else fb();}
 if(navigator.share){navigator.share(d).catch(function(e){if(e&&e.name==='AbortError')return;copy();});}else copy();
 });
+})();
+</script>
+<script>
+(function(){
+document.addEventListener('click',function(e){var h=e.target.closest&&e.target.closest('.heart');if(!h)return;var r=h.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,em=['\uD83D\uDC96','\u2728','\uD83D\uDC9C'];
+for(var i=0;i<7;i++){var s=document.createElement('span');s.className='spark';s.style.fontSize='16px';var a=Math.random()*6.283,d=30+Math.random()*50;
+s.style.setProperty('--x',cx+'px');s.style.setProperty('--y',cy+'px');s.style.setProperty('--dx',Math.cos(a)*d+'px');s.style.setProperty('--dy',Math.sin(a)*d+'px');s.style.setProperty('--r',(Math.random()*360-180)+'deg');
+s.textContent=em[i%3];document.body.appendChild(s);(function(n){setTimeout(function(){n.remove();},1000);})(s);}
+},true);
+var names=['menu','about','contact'],sx=0,sy=0,st=0,skip=false;
+document.addEventListener('touchstart',function(e){var t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now();skip=e.touches.length>1||!!(e.target.closest&&e.target.closest('#cats,input,.pop,.toast,nav,.logo'));},{passive:true});
+document.addEventListener('touchend',function(e){if(skip)return;var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Date.now()-st>600||Math.abs(dx)<90||Math.abs(dy)>40)return;
+var i=names.indexOf(location.hash.replace('#',''));if(i<0)i=0;var n=i+(dx<0?1:-1);if(n<0||n>=names.length)return;location.hash='#'+names[n];},{passive:true});
+})();
+</script>
+<script>
+(function(){
+var map={'Flower':'\uD83C\uDF3F','Pre-Rolls':'\uD83C\uDF43','Carts':'\uD83D\uDD0B','Concentrate':'\uD83D\uDC8E','Disposables':'\uD83D\uDCA8','Tincture':'\uD83D\uDCA7','Edibles':'\uD83C\uDF6B','Accessories':'\uD83D\uDD25'};
+var menu=document.getElementById('menu'),cats=document.getElementById('cats');if(!menu)return;
+menu.querySelectorAll('section').forEach(function(s){var h=s.querySelector('h2');if(!h)return;var ic=map[h.textContent.trim()];if(!ic)return;var d=document.createElement('div');d.className='cicon';d.setAttribute('aria-hidden','true');d.textContent=ic;s.insertBefore(d,h);});
+if(cats)cats.querySelectorAll('button').forEach(function(b){var ic=map[b.textContent.trim()];if(ic)b.setAttribute('data-i',ic);});
+})();
+</script>
+<script>
+(function(){
+var menu=document.getElementById('menu'),find=document.getElementById('find');if(!menu||!find)return;
+var pf=document.createElement('div');pf.id='pf';pf.setAttribute('role','group');pf.setAttribute('aria-label','Filter by price');
+var opts=[['Any price',0,1e9],['Under $25',0,24],['$25\u2013$60',25,60],['Over $60',61,1e9]];
+var nm=document.createElement('div');nm.className='nores';nm.textContent='Nothing in that price range.';
+find.insertAdjacentElement('afterend',pf);pf.insertAdjacentElement('afterend',nm);
+var items=[];
+menu.querySelectorAll('section').forEach(function(s){s.querySelectorAll('.row,.flower>div').forEach(function(it){var p=it.querySelector('.p'),m=p&&p.textContent.match(/\d+/);items.push({el:it,sec:s,v:m?parseInt(m[0],10):null});});});
+function apply(lo,hi){var any=false,on=lo>0||hi<1e9,vis=[];menu.classList.toggle('pf-on',on);
+items.forEach(function(o){var ok=o.v===null||(o.v>=lo&&o.v<=hi);o.el.classList.toggle('pfx',!ok);if(ok&&vis.indexOf(o.sec)<0)vis.push(o.sec);});
+menu.querySelectorAll('section').forEach(function(s){var h=vis.indexOf(s)<0;s.classList.toggle('pfhide',h);if(!h)any=true;});
+nm.style.display=(on&&!any)?'block':'none';}
+opts.forEach(function(o,i){var b=document.createElement('button');b.type='button';b.textContent=o[0];if(!i)b.className='on';
+b.addEventListener('click',function(){pf.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b);});apply(o[1],o[2]);});pf.appendChild(b);});
 })();
 </script>
 </body></html>
