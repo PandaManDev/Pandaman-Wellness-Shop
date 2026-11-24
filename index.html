@@ -184,6 +184,7 @@ body:not([data-page=menu]) .cartbar{display:none}
 .txt{color:var(--mut);line-height:1.7;text-align:center;margin:6px 0}
 .btns{text-align:center;margin-top:8px}
 .btns .gbtn{font-size:22px}
+.btns .gbtn.sm{font-size:17px}
 .steps{list-style:none;margin:14px 0 6px;padding:0;display:grid;gap:10px}
 .steps li{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid #c06bff55;border-radius:16px;background:#ffffff08;color:#e9d6ff;line-height:1.4}
 .steps b{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--grad);font-size:15px}
@@ -323,7 +324,7 @@ h1,h2,.p{background:none!important;color:#000!important;text-shadow:none!importa
 <div class="page" id="contact"><section><h2>Contact</h2>
 <p class="txt">Ready to order? Call or text us anytime.</p>
 <ol class="steps"><li><b>1</b><span>Browse the menu and tap the ♡ on what you like.</span></li><li><b>2</b><span>Open My Picks and tap Text my picks, or just give us a call.</span></li><li><b>3</b><span>We confirm your order. Pay in cash, then we go get it and hand it to you.</span></li></ol>
-<div class="btns"><a class="gbtn" id="callLink">📞 (401) 753-9860</a> <a class="gbtn no" id="smsLink">💬 Text</a></div>
+<div class="btns"><a class="gbtn" id="callLink">📞 (401) 753-9860</a> <a class="gbtn no" id="smsLink">💬 Text</a><br><a class="gbtn no sm" id="vcfLink" download="Pandaman-Wellness.vcf">👤 Save our contact</a></div>
 <p class="txt" id="cinfo" style="margin-top:14px"></p>
 <p class="txt">Tell us what you want from the menu, and we will confirm your order.</p></section></div>
 </main>
@@ -394,6 +395,12 @@ function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-')}
 var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 $('#callLink').href='tel:'+PHONE;$('#smsLink').href='sms:'+PHONE;
+
+/* ---- save-contact card (.vcf): edit the NOTE line if your hours change ---- */
+var VCF=['BEGIN:VCARD','VERSION:3.0','N:;Pandaman Wellness;;;','FN:Pandaman Wellness','ORG:Pandaman Wellness',
+ 'TEL;TYPE=CELL,VOICE:'+PHONE,'ADR;TYPE=WORK:;;;Waterville;ME;;US',
+ 'NOTE:Call or text to order. Open daily 12pm-6pm. 21+ only.','END:VCARD'].join('\r\n')+'\r\n';
+$('#vcfLink').href='data:text/vcard;charset=utf-8,'+encodeURIComponent(VCF);
 
 function typesHtml(s){return '<p class="choose">Your choice of type:</p><div class="chips types" data-cat="'+s.cat+'" role="group" aria-label="'+s.cat+' type">'
  +['Indica','Sativa','Hybrid'].map(function(t){return '<button type="button" data-t="'+t+'" aria-pressed="false">'+t+'</button>'}).join('')+'</div>'}
