@@ -974,7 +974,7 @@ $('#chk').onclick=checkout;
      sb.from('stamps').select('id,kind,note,created_at').eq('user_id',user.id).order('created_at',{ascending:false}).limit(500),
      sb.from('admins').select('user_id').eq('user_id',user.id).maybeSingle()]);
     profile=r[0].data||null;rows=r[1].data||[];isAdmin=!!r[2].data;
-    loadErr=r[1].error?'Couldn’t load your card. Tap Refresh to try again.':''}
+    var er=r[1].error||r[0].error;loadErr=er?'Couldn’t load your card ('+(er.message||er.code||'unknown error')+'). Tap Refresh to try again.':''}
   }catch(e){loadErr='Couldn’t reach the server. Try again.'}
   busy=false;ready=true;render();
   if(again){again=false;refresh();return}
