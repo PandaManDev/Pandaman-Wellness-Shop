@@ -950,7 +950,7 @@ $('#chk').onclick=checkout;
   $('#pcWho').textContent=signedIn?((profile&&profile.name)||user.email||''):(cfg?'Sign in to save your stamps':'');
   drawSlots(slots,n,signedIn&&prevN!=null&&n>prevN?prevN:null);prevN=signedIn?n:null;
   $('#pcFill').style.width=(n*10)+'%';
-  $('#pcNote').textContent=loadErr||(!cfg?'Accounts aren’t set up yet. Ask us about your stamps.':!signedIn?'Create a free account to keep your punch card on any device. We add a stamp after each purchase.':
+  $('#pcNote').textContent=loadErr||(signedIn&&!profile?'Signed in, but your card isn’t ready yet. Tap Refresh. If it stays like this, the database setup (setup.sql) hasn’t been run.':!cfg?'Accounts aren’t set up yet. Ask us about your stamps.':!signedIn?'Create a free account to keep your punch card on any device. We add a stamp after each purchase.':
    c.cur>=10?'🎉 Free pre-roll earned! Tell us when you order and we’ll redeem it.'+(c.cur>10?' ('+(c.cur-10)+' extra stamp'+(c.cur>11?'s':'')+' saved)':''):n+' of 10 purchases · '+(10-n)+' to go');
   var meta=$('#pcMeta');meta.hidden=!signedIn;
   if(signedIn)meta.innerHTML='<div><b>'+esc(profile?profile.card_id:'…')+'</b>Card ID</div><div><b>'+c.s+'</b>Total stamps</div><div><b>'+c.r+'</b>Rewards used</div>';
@@ -981,6 +981,15 @@ $('#chk').onclick=checkout;
   if(location.hash==='#admin'&&isAdmin)loadRecent()}
 
  /* ---- sign in / create account ---- */
+ function nice(e){
+  var m=String(e&&e.message||e||''),l=m.toLowerCase();
+  if(l.indexOf('not confirmed')>-1)return 'Please confirm your email first. Check your inbox (and spam) for our link, then sign in.';
+  if(l.indexOf('invalid login')>-1)return 'Wrong email or password. If you don’t have an account yet, tap Create account.';
+  if(l.indexOf('already registered')>-1)return 'That email already has an account. Tap Sign in instead.';
+  if(l.indexOf('database error')>-1)return 'The database isn’t set up yet. (Run setup.sql in Supabase.) Details: '+m;
+  if(l.indexOf('rate limit')>-1||l.indexOf('too many')>-1)return 'Too many attempts. Wait a few minutes and try again.';
+  if(l.indexOf('failed to fetch')>-1||l.indexOf('network')>-1||l.indexOf('load failed')>-1)return 'Can’t reach the server. Check your connection and try again.';
+  return m||'Something went wrong. Try again.'}
  function amsg(t,ok){var m=$('#aMsg');m.textContent=t||'';m.className='ferr'+(ok?' okc':'')}
  function setMode(m){mode=m;$('#tIn').classList.toggle('on',m==='in');$('#tUp').classList.toggle('on',m==='up');
   $('#aName').hidden=m!=='up';$('#aGo').textContent=m==='up'?'Create account':'Sign in';
@@ -995,17 +1004,17 @@ $('#chk').onclick=checkout;
   var btn=this;btn.disabled=true;amsg('');
   try{
    var res=mode==='up'?await sb.auth.signUp({email:mail,password:pw,options:{data:{name:name}}}):await sb.auth.signInWithPassword({email:mail,password:pw});
-   if(res.error){amsg(res.error.message);btn.disabled=false;return}
+   if(res.error){amsg(nice(res.error));btn.disabled=false;return}
    if(mode==='up'&&!(res.data&&res.data.session)){amsg('Check your email to confirm your account, then sign in.',1);setMode('in');btn.disabled=false;return}
    $('#aPass').value='';await refresh()
-  }catch(e){amsg('Something went wrong. Try again.')}
+  }catch(e){amsg(nice(e))}
   btn.disabled=false};
  $('#aPass').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();$('#aGo').click()}});
  $('#aForgot').onclick=async function(){
   if(!sb)return;var mail=$('#aMail').value.trim();
   if(!/^\S+@\S+\.\S+$/.test(mail)){amsg('Type your email above first.');return}
   var r=await sb.auth.resetPasswordForEmail(mail,{redirectTo:location.origin+location.pathname});
-  amsg(r.error?r.error.message:'If that email has an account, a reset link is on its way.',!r.error)};
+  amsg(r.error?nice(r.error):'If that email has an account, a reset link is on its way.',!r.error)};
  $('#npGo').onclick=async function(){
   var pw=$('#npPass').value,m=$('#npMsg');
   if(pw.length<6){m.textContent='Your password needs 6 or more characters.';return}
