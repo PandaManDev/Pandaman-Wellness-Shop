@@ -307,7 +307,7 @@ h1,h2,.p{background:none!important;color:#000!important;text-shadow:none!importa
 <div class="topbar">
 <div class="tb"><span class="brand"><span class="logo-sm"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#logo"/></svg></span>Pandaman</span>
 <div class="tbr"><button id="sbtn" type="button" aria-label="Share this menu">📤</button><button id="mbtn" type="button" aria-expanded="false" aria-controls="nav">☰ Menu</button></div></div>
-<nav id="nav" aria-label="Pages"><a href="#menu">🌿 Menu</a><a href="#deals">🎁 Rewards</a><a href="#about">🐼 About</a><a href="#faq">❓ FAQ</a><a href="#safety">🛡️ Safety</a><a href="#info">📍 Info</a><a href="#feedback">⭐ Feedback</a><a href="#contact">📞 Contact</a><a href="#admin" id="navAdmin" hidden>🔧 Admin</a></nav>
+<nav id="nav" aria-label="Pages"><a href="#menu">🌿 Menu</a><a href="#deals">🎁 Rewards</a><a href="#about">🐼 About</a><a href="#faq">❓ FAQ</a><a href="#safety">🛡️ Safety</a><a href="#info">📍 Info</a><a href="#feedback">⭐ Feedback</a><a href="#contact">📞 Contact</a><a href="#admin" id="navAdmin">🔧 Admin</a></nav>
 </div>
 
 <main>
@@ -410,6 +410,7 @@ h1,h2,.p{background:none!important;color:#000!important;text-shadow:none!importa
 <p class="txt">Tell us what you want from the menu, and we will confirm your order.</p></section></div>
 <div class="page" id="admin"><section><h2>Admin</h2>
 <p class="txt" id="adGate">Checking access…</p>
+<div class="btns" id="adSign" hidden><a class="gbtn sm" href="#deals">Go to sign in</a></div>
 <div id="adBody" hidden>
 <div class="odet" style="max-width:none"><input id="adQ" type="search" placeholder="Find a customer: name, email or card ID" aria-label="Find a customer" autocomplete="off"><button type="button" class="gbtn sm" id="adFind" style="margin:0">🔍 Search</button></div>
 <div class="info" id="adRes" hidden></div>
@@ -500,6 +501,8 @@ var PROMOS={};
 /* ---- Accounts (Supabase): saves each customer's punch card to their account.
    Create a free project at supabase.com, run setup.sql in its SQL editor, then paste your Project URL and anon public key here.
    Leave both empty to turn accounts off. The anon key is meant to be public. ---- */
+/* ---- Admin link in the menu: true = everyone sees the link (only admins get in), false = only admins see it ---- */
+var SHOW_ADMIN_LINK=true;
 var SUPABASE={url:'https://rilcamphpjcaebajquyo.supabase.co',key:'sb_publishable_XkhO-mTjYgsB5ClCixI1qw_QYL534pV'};
 var PRICE=[['Any price',0,1e9],['Under $25',0,24],['$25–$60',25,60],['Over $60',61,1e9]];
 
@@ -944,7 +947,7 @@ $('#chk').onclick=checkout;
  /* ---- render the customer card ---- */
  function renderGate(){
   var g=$('#adGate'),b=$('#adBody'),t=!cfg?'Accounts aren’t set up yet.':!ready?'Checking access…':!user?'Sign in on the Rewards page first.':!isAdmin?'This page is for admins only.':'';
-  g.textContent=t;g.hidden=!t;b.hidden=!!t}
+  g.textContent=t;g.hidden=!t;b.hidden=!!t;$('#adSign').hidden=!(cfg&&ready&&!user)}
  function render(){
   var signedIn=!!user,c=signedIn?calc(rows):{s:0,r:0,cur:0},n=Math.max(0,Math.min(10,c.cur));
   $('#pcWho').textContent=signedIn?((profile&&profile.name)||user.email||''):(cfg?'Sign in to save your stamps':'');
@@ -957,7 +960,7 @@ $('#chk').onclick=checkout;
   $('#pcAuth').hidden=signedIn||!cfg||recovering;$('#pcNew').hidden=!recovering;$('#pcOut').hidden=!signedIn;
   var h=$('#pcHist');h.hidden=!(signedIn&&rows.length);
   if(signedIn&&rows.length)h.innerHTML='<div style="border:0;background:none;padding:0;text-align:center"><b>Recent activity</b></div>'+histHtml(rows,8);
-  $('#navAdmin').hidden=!isAdmin;
+  $('#navAdmin').hidden=!(isAdmin||SHOW_ADMIN_LINK);
   renderGate()}
 
  /* ---- load everything for the signed-in user ---- */
